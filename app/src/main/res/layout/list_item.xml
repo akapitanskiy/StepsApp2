@@ -20,14 +20,14 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp">
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:paddingStart="20dp"
                 android:text="33.12.2019"/>
             <TextView
-                android:id="@+id/steps"
+                android:id="@+id/tvSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -71,18 +71,21 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp">
             <TextView
+                android:id="@+id/tvWalkSteps"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="1300"/>
             <TextView
+                android:id="@+id/tvAerobicSteps"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="1470"/>
             <TextView
+                android:id="@+id/tvRunSteps"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
