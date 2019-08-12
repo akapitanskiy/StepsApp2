@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.StepsListViewHolder> {
 
+    private static int itemsQuantity;
 
     @NonNull
     @Override
@@ -17,18 +18,18 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
         int list_item_Rid = R.layout.list_item;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(list_item_Rid, parent, false);
-
-        StepsListViewHolder stepsListViewHolder = new StepsListViewHolder(view);
-        return stepsListViewHolder;
+        itemsQuantity++;
+        return new StepsListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StepsListViewHolder viewHolder, int position) {
-
+        viewHolder.bind(position);
     }
 
     @Override
     public int getItemCount() {
+        return itemsQuantity;
     }
 
     class StepsListViewHolder extends RecyclerView.ViewHolder {
