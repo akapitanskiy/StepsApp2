@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:paddingEnd="20dp"
-                android:text="2000 / 4000 steps"/>
+                android:text="@string/tvSteps_pattern"/>
         </FrameLayout>
 
         <LinearLayout

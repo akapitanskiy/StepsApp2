@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StepsApp</string>
+    <string name="tvSteps_pattern">%s / 4000 steps</string>
 </resources>
