@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.alexthekap.stepsapp.adapter.StepsListAdapter;
 import com.alexthekap.stepsapp.model.ListItem;
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvStepsList;
     IStepsAPI stepsAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,26 @@ public class MainActivity extends AppCompatActivity {
         rvStepsList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvStepsList.setLayoutManager(linearLayoutManager);
+//        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         fetchData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.toolbar) {
+            Toast.makeText(getApplicationContext(), "Goal", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 
     private void fetchData() {
