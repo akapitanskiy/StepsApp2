@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             steps = Integer.parseInt(etAlertSetGoal.getText().toString());
-            // TODO проверки валидация ^
+            // TODO проверки валидация ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             int i = 0;
             fetchData();
         }
