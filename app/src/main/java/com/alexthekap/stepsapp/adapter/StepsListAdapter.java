@@ -21,10 +21,12 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
 
     Context context;
     List<ListItem> stepsItemsList;
+    int steps;
 
-    public StepsListAdapter(Context context, List<ListItem> stepsItemsList) {
+    public StepsListAdapter(Context context, List<ListItem> stepsItemsList, int steps) {
         this.context = context;
         this.stepsItemsList = stepsItemsList;
+        this.steps = steps;
     }
 
     @NonNull
@@ -85,7 +87,8 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
             int stepsTotal = item.getAerobic() + item.getRun() + item.getWalk();
             tvSteps.setText(String.format(
                     context.getResources().getString(R.string.tvSteps_pattern),
-                    String.valueOf(stepsTotal)
+                    String.valueOf(stepsTotal),
+                    String.valueOf(steps)
             ));
 
             tvWalkSteps.setText(String.valueOf(item.getWalk()));

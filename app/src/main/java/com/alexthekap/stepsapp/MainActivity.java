@@ -1,12 +1,17 @@
 package com.alexthekap.stepsapp;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alexthekap.stepsapp.adapter.StepsListAdapter;
@@ -27,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvStepsList;
     IStepsAPI stepsAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    Toolbar toolbar;
+    TextView tvSetGoal;
+    AlertDialog.Builder alert;
+    EditText etAlertSetGoal;
+    int steps = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +49,20 @@ public class MainActivity extends AppCompatActivity {
         rvStepsList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvStepsList.setLayoutManager(linearLayoutManager);
-//        toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        tvSetGoal = findViewById(R.id.tvSetGoal);
+        tvSetGoal.setOnClickListener(tvSetGoalListener);
+
+        alert = new AlertDialog.Builder(this);
+        alert.setTitle("Title");
+        alert.setMessage("Message");
+// Set an EditText view to get user input
+        etAlertSetGoal = new EditText(this);
+        alert.setView(etAlertSetGoal);
+        alert.setPositiveButton("Ok", setGoal_OK_Listener);
+        alert.setNegativeButton("Cancel", setGoal_Cancel_Listener);
 
         fetchData();
     }
@@ -57,10 +76,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.toolbar) {
+        if(id == R.id.add) {
             Toast.makeText(getApplicationContext(), "Goal", Toast.LENGTH_SHORT).show();
         }
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
     }
 
     private void fetchData() {
@@ -77,13 +102,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayData(List<ListItem> listItems) {
-        StepsListAdapter adapter = new StepsListAdapter(this, listItems);
+        StepsListAdapter adapter = new StepsListAdapter(this, listItems, steps);
         rvStepsList.setAdapter(adapter);
     }
 
-    @Override
-    protected void onStop() {
-        compositeDisposable.clear();
-        super.onStop();
-    }
+    View.OnClickListener tvSetGoalListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            alert.show();
+        }
+    };
+
+    DialogInterface.OnClickListener setGoal_Cancel_Listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+        }
+    };
+    DialogInterface.OnClickListener setGoal_OK_Listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            steps = Integer.parseInt(etAlertSetGoal.getText().toString());
+            // TODO проверки валидация ^
+            int i = 0;
+            fetchData();
+        }
+    };
 }

@@ -12,22 +12,24 @@
         android:elevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:logo="@drawable/ic_filter_vintage_black_24dp"
         >
 
-        <android.support.v7.widget.ActionMenuView
+        <TextView
+            android:id="@+id/tvSetGoal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_filter_vintage_black_24dp"
+            android:clickable="true"
+            android:focusable="true"
+            />
 
         <TextView
             android:text="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-
             android:textSize="24sp"
             />
-<!--        android:layout_marginEnd="15dp"-->
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
