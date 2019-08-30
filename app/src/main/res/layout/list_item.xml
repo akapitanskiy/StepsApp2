@@ -19,7 +19,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:minHeight="10dp">
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
@@ -27,7 +28,8 @@
                 android:layout_gravity="start"
                 android:paddingStart="20dp"
                 android:textSize="20sp"
-                android:text="33.12.2019"/>
+                android:text="33.12.2019"
+                />
             <TextView
                 android:id="@+id/tvSteps"
                 android:layout_width="wrap_content"
@@ -35,7 +37,8 @@
                 android:layout_gravity="end"
                 android:paddingEnd="20dp"
                 android:textSize="18sp"
-                android:text="@string/tvSteps_pattern"/>
+                android:text="@string/tvSteps_pattern"
+                />
         </FrameLayout>
 
         <LinearLayout
@@ -52,7 +55,9 @@
                 android:background="@drawable/corner_left"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="1dp"
-                android:layout_weight="1"/>
+                android:minWidth="1dp"
+                android:layout_weight="1"
+                />
             <FrameLayout
                 android:id="@+id/piece2"
                 android:layout_width="0dp"
@@ -60,15 +65,19 @@
                 android:background="@color/colorPiece2"
                 android:layout_marginStart="1dp"
                 android:layout_marginEnd="1dp"
-                android:layout_weight="1"/>
+                android:minWidth="1dp"
+                android:layout_weight="1"
+                />
             <FrameLayout
                 android:id="@+id/piece3"
                 android:layout_width="0dp"
                 android:layout_height="6dp"
                 android:background="@drawable/corner_right"
-                android:layout_marginStart="1dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginEnd="3dp"
-                android:layout_weight="2"/>
+                android:minWidth="1dp"
+                android:layout_weight="2"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -82,7 +91,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="1300"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                />
             <TextView
                 android:id="@+id/tvAerobicSteps"
                 android:layout_width="0dp"
@@ -90,7 +100,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="1470"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                />
             <TextView
                 android:id="@+id/tvRunSteps"
                 android:layout_width="0dp"
@@ -98,7 +109,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="240"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -111,25 +123,63 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="walk"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="aerobic"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="run"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/goal_reached"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:minHeight="2dp"
+                android:background="@color/colorPrimary"
+            />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="30dp"
+                    android:layout_gravity="start"
+                    android:textSize="20sp"
+                    android:text="Goal reached"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_star_black_24dp"
+                    android:paddingEnd="30dp"
+                    android:layout_gravity="end"
+                    />
+            </FrameLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
-
-
-
-
 </LinearLayout>

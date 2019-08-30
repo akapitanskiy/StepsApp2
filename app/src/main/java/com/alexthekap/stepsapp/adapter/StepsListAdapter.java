@@ -53,6 +53,7 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
         TextView tvDate;
         TextView tvSteps;
         LinearLayout linePieChart;
+        LinearLayout goal_reached;
         FrameLayout piece1;
         FrameLayout piece2;
         FrameLayout piece3;
@@ -63,6 +64,7 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
         LinearLayout.LayoutParams params1;
         LinearLayout.LayoutParams params2;
         LinearLayout.LayoutParams params3;
+        LinearLayout.LayoutParams goal_reachedParams;
 
         public StepsListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +72,7 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
             tvDate = itemView.findViewById(R.id.tvDate);
             tvSteps = itemView.findViewById(R.id.tvSteps);
             linePieChart = itemView.findViewById(R.id.linLayoutAsBar);
+            goal_reached = itemView.findViewById(R.id.goal_reached);
             tvWalkSteps = itemView.findViewById(R.id.tvWalkSteps);
             tvAerobicSteps = itemView.findViewById(R.id.tvAerobicSteps);
             tvRunSteps = itemView.findViewById(R.id.tvRunSteps);
@@ -80,11 +83,17 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
             params1 = (LinearLayout.LayoutParams) piece1.getLayoutParams();
             params2 = (LinearLayout.LayoutParams) piece2.getLayoutParams();
             params3 = (LinearLayout.LayoutParams) piece3.getLayoutParams();
+            goal_reachedParams = (LinearLayout.LayoutParams) goal_reached.getLayoutParams();
         }
 
         void bind(int position) {
             ListItem item = stepsItemsList.get(position);
             int stepsTotal = item.getAerobic() + item.getRun() + item.getWalk();
+            if(stepsTotal < steps) {
+                goal_reached.setVisibility(View.INVISIBLE);
+                goal_reachedParams.height = 0;
+                goal_reached.setLayoutParams(goal_reachedParams);
+            }
             tvSteps.setText(String.format(
                     context.getResources().getString(R.string.tvSteps_pattern),
                     String.valueOf(stepsTotal),
@@ -100,9 +109,9 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
             String strDate = sdf.format(date);
             tvDate.setText(strDate);
 
-            params1.weight = item.getWalk();
-            params2.weight = item.getAerobic();
-            params3.weight = item.getRun();
+            params1.weight = (item.getWalk() / (item.getRun() + item.getAerobic())) < 1 ? 1 : item.getWalk();
+            params2.weight = (item.getAerobic() / (item.getRun() + item.getWalk())) < 1 ? 1 : item.getAerobic();
+            params3.weight = (item.getRun() / (item.getWalk() + item.getAerobic())) < 1 ? 1 : item.getRun();
 
             piece1.setLayoutParams(params1);
             piece2.setLayoutParams(params2);
