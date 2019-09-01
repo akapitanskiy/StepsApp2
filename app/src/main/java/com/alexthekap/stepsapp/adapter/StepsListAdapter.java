@@ -88,7 +88,10 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
 
         void bind(int position) {
             ListItem item = stepsItemsList.get(position);
-            int stepsTotal = item.getAerobic() + item.getRun() + item.getWalk();
+            int walk = item.getWalk();
+            int aerobic = item.getAerobic();
+            int run = item.getRun();
+            int stepsTotal = walk + aerobic + run;
             if(stepsTotal < steps) {
                 goal_reached.setVisibility(View.INVISIBLE);
                 goal_reachedParams.height = 0;
@@ -100,18 +103,18 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
                     String.valueOf(steps)
             ));
 
-            tvWalkSteps.setText(String.valueOf(item.getWalk()));
-            tvAerobicSteps.setText(String.valueOf(item.getAerobic()));
-            tvRunSteps.setText(String.valueOf(item.getRun()));
+            tvWalkSteps.setText(String.valueOf(walk));
+            tvAerobicSteps.setText(String.valueOf(aerobic));
+            tvRunSteps.setText(String.valueOf(run));
 
             Date date = new Date(item.getDate());
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
             String strDate = sdf.format(date);
             tvDate.setText(strDate);
 
-            params1.weight = (item.getWalk() / (item.getRun() + item.getAerobic())) < 1 ? 1 : item.getWalk();
-            params2.weight = (item.getAerobic() / (item.getRun() + item.getWalk())) < 1 ? 1 : item.getAerobic();
-            params3.weight = (item.getRun() / (item.getWalk() + item.getAerobic())) < 1 ? 1 : item.getRun();
+            params1.weight = walk * 1.0 / (aerobic + run) < 0.005 ? ((aerobic + run) / 240) + 1 : walk;
+            params2.weight = aerobic * 1.0 / (walk + run) < 0.005 ? ((walk + run) / 240) + 1 : aerobic;
+            params3.weight = run * 1.0 / (walk + aerobic) < 0.005 ? ((walk + aerobic) / 240) + 1 : run;
 
             piece1.setLayoutParams(params1);
             piece2.setLayoutParams(params2);
