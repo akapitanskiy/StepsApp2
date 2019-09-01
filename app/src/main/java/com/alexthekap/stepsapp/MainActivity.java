@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         tvSetGoal.setOnClickListener(tvSetGoalListener);
 
         alert = new AlertDialog.Builder(this);
-        alert.setTitle("Title");
-        alert.setMessage("Message");
+        alert.setTitle("Set goal");
+        alert.setMessage("");
 // Set an EditText view to get user input
         etAlertSetGoal = new EditText(this);
         alert.setView(etAlertSetGoal);
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             steps = Integer.parseInt(etAlertSetGoal.getText().toString());
-            // TODO проверки валидация ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // TODO проверки валидация ^
             int i = 0;
             fetchData();
         }
