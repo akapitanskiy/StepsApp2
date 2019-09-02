@@ -112,9 +112,9 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
             String strDate = sdf.format(date);
             tvDate.setText(strDate);
 
-            params1.weight = walk * 1.0 / (aerobic + run) < 0.005 ? ((aerobic + run) / 240) + 1 : walk;
-            params2.weight = aerobic * 1.0 / (walk + run) < 0.005 ? ((walk + run) / 240) + 1 : aerobic;
-            params3.weight = run * 1.0 / (walk + aerobic) < 0.005 ? ((walk + aerobic) / 240) + 1 : run;
+            params1.weight = walk*1.0 / (aerobic + run) < 0.005 ? ((aerobic + run) / 240f) + 1 : walk;
+            params2.weight = aerobic*1.0 / (walk + run) < 0.005 ? ((walk + run) / 240f) + 1 : aerobic;
+            params3.weight = run*1.0 / (walk + aerobic) < 0.005 ? ((walk + aerobic) / 240f) + 1 : run;
 
             piece1.setLayoutParams(params1);
             piece2.setLayoutParams(params2);
