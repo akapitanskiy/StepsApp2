@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_custom_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="2dp"
     android:background="@color/colorPrimary"
     >
@@ -17,9 +18,8 @@
 
     <EditText
         android:id="@+id/goalInput"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
         android:inputType="number"
         />
 
@@ -31,4 +31,4 @@
         android:layout_centerInParent="true"
         android:padding="25sp"
         />
-</RelativeLayout>
+</LinearLayout>
