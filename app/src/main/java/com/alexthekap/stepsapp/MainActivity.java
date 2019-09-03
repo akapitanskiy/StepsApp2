@@ -1,17 +1,22 @@
 package com.alexthekap.stepsapp;
 
-import android.content.DialogInterface;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.alexthekap.stepsapp.adapter.StepsListAdapter;
@@ -29,12 +34,15 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Context context;
+    private PopupWindow popupWindow;
     private RecyclerView rvStepsList;
+    private LinearLayout mainLinearLayout;
     IStepsAPI stepsAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    TextView tvSetGoal;
-    AlertDialog.Builder alert;
-    EditText etAlertSetGoal;
+    private ImageButton setGoal;
+//    AlertDialog.Builder alert;
+//    private EditText etAlertSetGoal;
     int steps = 4000;
 
     @Override
@@ -45,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = RetrofitManager.getInstance();
         stepsAPI = retrofit.create(IStepsAPI.class);
 
+        mainLinearLayout = findViewById(R.id.main);
         rvStepsList = findViewById(R.id.rv_stepsList);
         rvStepsList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -52,17 +61,26 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        tvSetGoal = findViewById(R.id.tvSetGoal);
-        tvSetGoal.setOnClickListener(tvSetGoalListener);
+        setGoal = findViewById(R.id.tvSetGoal);
+        setGoal.setOnClickListener(setGoalListener);
 
-        alert = new AlertDialog.Builder(this);
-        alert.setTitle("Set goal");
-        alert.setMessage("");
-// Set an EditText view to get user input
-        etAlertSetGoal = new EditText(this);
-        alert.setView(etAlertSetGoal);
-        alert.setPositiveButton("Ok", setGoal_OK_Listener);
-        alert.setNegativeButton("Cancel", setGoal_Cancel_Listener);
+        context = getApplicationContext();
+
+
+
+        //
+
+
+
+
+//        alert = new AlertDialog.Builder(this);
+//        alert.setTitle("Set goal");
+//        alert.setMessage("");
+//// Set an EditText view to get user input
+//        etAlertSetGoal = new EditText(this);
+//        alert.setView(etAlertSetGoal);
+//        alert.setPositiveButton("Ok", setGoal_OK_Listener);
+//        alert.setNegativeButton("Cancel", setGoal_Cancel_Listener);
 
         fetchData();
     }
@@ -77,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.add) {
-            Toast.makeText(getApplicationContext(), "Goal", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "You are great", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -106,26 +124,49 @@ public class MainActivity extends AppCompatActivity {
         rvStepsList.setAdapter(adapter);
     }
 
-    View.OnClickListener tvSetGoalListener = new View.OnClickListener() {
+//    View.OnClickListener tvSetGoalListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            alert.show();
+//        }
+//    };
+
+    View.OnClickListener setGoalListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            alert.show();
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popupView = inflater.inflate(R.layout.popup, null);
+            popupWindow = new PopupWindow(
+                    popupView,
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT
+            );
+            if(Build.VERSION.SDK_INT>=21){
+                popupWindow.setElevation(5.0f);
+            }
+            Button btnCancel = popupView.findViewById(R.id.btn_cancel);
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popupWindow.dismiss();
+                }
+            });
+            popupWindow.showAtLocation(mainLinearLayout, Gravity.CENTER,0,0);
         }
     };
 
-    DialogInterface.OnClickListener setGoal_Cancel_Listener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-
-        }
-    };
-    DialogInterface.OnClickListener setGoal_OK_Listener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            steps = Integer.parseInt(etAlertSetGoal.getText().toString());
-            // TODO проверки валидация ^
-            int i = 0;
-            fetchData();
-        }
-    };
+//    DialogInterface.OnClickListener setGoal_Cancel_Listener = new DialogInterface.OnClickListener() {
+//        @Override
+//        public void onClick(DialogInterface dialog, int which) {
+//
+//        }
+//    };
+//    DialogInterface.OnClickListener setGoal_OK_Listener = new DialogInterface.OnClickListener() {
+//        @Override
+//        public void onClick(DialogInterface dialog, int which) {
+//            steps = Integer.parseInt(etAlertSetGoal.getText().toString());
+//            int i = 0;
+//            fetchData();
+//        }
+//    };
 }
