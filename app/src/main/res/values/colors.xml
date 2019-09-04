@@ -10,4 +10,5 @@
 
     <color name="background">#FFFFFF</color>
     <color name="goldStar">#ffde21</color>
+    <color name="dark">#5A5A5A</color>
 </resources>

@@ -1,13 +1,12 @@
 package com.alexthekap.stepsapp;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     IStepsAPI stepsAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ImageButton setGoal;
-    EditText etAlertSetGoal;
+    EditText et_popup;
     int steps = 4000;
 
     @Override
@@ -119,27 +118,29 @@ public class MainActivity extends AppCompatActivity {
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT
             );
-            if(Build.VERSION.SDK_INT>=21){
-                popupWindow.setElevation(5.0f);
-            }
-            Button btnCancel = popupView.findViewById(R.id.btn_cancel);
+            popupWindow.setElevation(5.0f);
+            popupWindow.setFocusable(true);
+            et_popup = popupView.findViewById(R.id.et_popup);
+            ImageButton btnCancel = popupView.findViewById(R.id.btn_popup_close);
+            Button btnOk = popupView.findViewById(R.id.btn_popup_ok);
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     popupWindow.dismiss();
                 }
             });
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Editable value = et_popup.getText();
+                    if(value != null && !value.toString().equals("")) {
+                        steps = Integer.parseInt(value.toString());
+                    }
+                    popupWindow.dismiss();
+                    fetchData();
+                }
+            });
             popupWindow.showAtLocation(mainLinearLayout, Gravity.CENTER,0,0);
-        }
-    };
-
-    DialogInterface.OnClickListener setGoal_OK_Listener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            steps = Integer.parseInt(etAlertSetGoal.getText().toString());
-            // TODO проверки валидация ^
-            int i = 0;
-            fetchData();
         }
     };
 }
