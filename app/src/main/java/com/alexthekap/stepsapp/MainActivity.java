@@ -132,9 +132,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Editable value = et_popup.getText();
-                    if(value != null && !value.toString().equals("")) {
-                        steps = Integer.parseInt(value.toString());
+                    if(value == null || value.toString().equals("")) {
+                        popupWindow.dismiss();
+                        return;
                     }
+                    steps = Integer.parseInt(value.toString());
                     popupWindow.dismiss();
                     fetchData();
                 }
