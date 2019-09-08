@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Steps</string>
     <string name="tvSteps_pattern">%s / %s steps</string>
+    <string name="walk">walk</string>
+    <string name="aerobic">aerobic</string>
+    <string name="run">run</string>
+    <string name="goal_reached">Goal reached</string>
+    <string name="zero">0</string>
+    <string name="date_stub">31.12.2019</string>
 </resources>
