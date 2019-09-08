@@ -26,6 +26,7 @@ import com.alexthekap.stepsapp.network.IStepsAPI;
 import com.alexthekap.stepsapp.network.RetrofitManager;
 
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -39,11 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private PopupWindow popupWindow;
     private LinearLayout mainLinearLayout;
-    IStepsAPI stepsAPI;
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ImageButton setGoal;
-    EditText et_popup;
-    int steps = 4000;
+    private IStepsAPI stepsAPI;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private EditText et_popup;
+    private int steps = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +52,16 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = RetrofitManager.getInstance();
         stepsAPI = retrofit.create(IStepsAPI.class);
+        context = getApplicationContext();
 
         mainLinearLayout = findViewById(R.id.main);
         rvStepsList = findViewById(R.id.rv_stepsList);
         rvStepsList.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rvStepsList.setLayoutManager(linearLayoutManager);
-
+        rvStepsList.setLayoutManager(new LinearLayoutManager(this));
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        setGoal = findViewById(R.id.tvSetGoal);
+        ImageButton setGoal = findViewById(R.id.tvSetGoal);
         setGoal.setOnClickListener(setGoalListener);
-
-        context = getApplicationContext();
 
         fetchData();
     }
@@ -112,7 +109,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-            View popupView = inflater.inflate(R.layout.popup, null);
+            View popupView = Objects.requireNonNull(inflater).inflate(R.layout.popup, null);
+            ImageButton btnCancel = popupView.findViewById(R.id.btn_popup_close);
+            Button btnOk = popupView.findViewById(R.id.btn_popup_ok);
+            et_popup = popupView.findViewById(R.id.et_popup);
+
             popupWindow = new PopupWindow(
                     popupView,
                     LayoutParams.WRAP_CONTENT,
@@ -120,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
             );
             popupWindow.setElevation(5.0f);
             popupWindow.setFocusable(true);
-            et_popup = popupView.findViewById(R.id.et_popup);
-            ImageButton btnCancel = popupView.findViewById(R.id.btn_popup_close);
-            Button btnOk = popupView.findViewById(R.id.btn_popup_ok);
+
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
