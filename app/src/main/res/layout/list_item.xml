@@ -50,33 +50,20 @@
             android:paddingRight="12dp">
             <FrameLayout
                 android:id="@+id/piece1"
-                android:layout_width="0dp"
-                android:layout_height="6dp"
+                style="@style/linePieChartPiece"
                 android:background="@drawable/corner_left"
                 android:layout_marginStart="3dp"
-                android:layout_marginEnd="1dp"
-                android:minWidth="1dp"
-                android:layout_weight="1"
                 />
             <FrameLayout
                 android:id="@+id/piece2"
-                android:layout_width="0dp"
-                android:layout_height="6dp"
+                style="@style/linePieChartPiece"
                 android:background="@color/colorPiece2"
-                android:layout_marginStart="1dp"
-                android:layout_marginEnd="1dp"
-                android:minWidth="1dp"
-                android:layout_weight="1"
                 />
             <FrameLayout
                 android:id="@+id/piece3"
-                android:layout_width="0dp"
-                android:layout_height="6dp"
+                style="@style/linePieChartPiece"
                 android:background="@drawable/corner_right"
-                android:layout_marginStart="2dp"
                 android:layout_marginEnd="3dp"
-                android:minWidth="1dp"
-                android:layout_weight="2"
                 />
         </LinearLayout>
 
@@ -86,30 +73,15 @@
             android:paddingTop="10dp">
             <TextView
                 android:id="@+id/tvWalkSteps"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="@string/zero"
-                android:textSize="18sp"
+                style="@style/stepsQty"
                 />
             <TextView
                 android:id="@+id/tvAerobicSteps"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="@string/zero"
-                android:textSize="18sp"
+                style="@style/stepsQty"
                 />
             <TextView
                 android:id="@+id/tvRunSteps"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="@string/zero"
-                android:textSize="18sp"
+                style="@style/stepsQty"
                 />
         </LinearLayout>
 
@@ -118,28 +90,16 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp">
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
+                style="@style/stepsName"
                 android:text="@string/walk"
-                android:textSize="12sp"
                 />
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
+                style="@style/stepsName"
                 android:text="@string/aerobic"
-                android:textSize="12sp"
                 />
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
+                style="@style/stepsName"
                 android:text="@string/run"
-                android:textSize="12sp"
                 />
         </LinearLayout>
 
@@ -156,7 +116,7 @@
                 android:layout_marginEnd="20dp"
                 android:minHeight="2dp"
                 android:background="@color/colorPrimary"
-            />
+                />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -182,8 +142,6 @@
                     android:layout_gravity="end"
                     />
             </FrameLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

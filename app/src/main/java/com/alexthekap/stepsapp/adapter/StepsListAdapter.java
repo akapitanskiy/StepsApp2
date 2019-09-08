@@ -92,8 +92,8 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
             int aerobic = item.getAerobic();
             int run = item.getRun();
             int stepsTotal = walk + aerobic + run;
+
             if(stepsTotal < steps) {
-                goal_reached.setVisibility(View.INVISIBLE);
                 goal_reachedParams.height = 0;
                 goal_reached.setLayoutParams(goal_reachedParams);
             }
